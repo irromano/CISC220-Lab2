@@ -26,6 +26,8 @@ void arrayMaker(int len, int &small);
 void arrayMakerReverse(int len);
 void arrayMakerOrder(int len, int max);
 int* returnIntAddress();
+void printArray(int arr[], int len);
+int randArrayPoint(int *len, int *high, int *low);
 
 int main() {
 	int problem = 0;
@@ -169,11 +171,32 @@ int main() {
 	//cout << *threePointer << endl;			//Printing out the pointing value and the value of 'threePointer' terminates the program. The value of threePointer zeros when the original function finishes.
 	//cout << threePointer << endl;
 	cout << endl;
-	printLine;
+	printLine();
 
 	//Header for Problem 12
 	printHeader(problem);
 	cout << endl;
+
+	srand(time(NULL));				//Setting seed for RNG
+	int arr12[10];
+	for (int i=0; i<10; i++){			//build int array of rand ints
+		arr12[i]= rand() % 10 + 1;		//random int 1-10
+	}
+
+	cout << "Test Case 1" << endl;
+	cout << "An int array of 10 random integers should print out:" << endl;
+	printArray(arr12, 10);
+	cout << endl;
+	printLine();
+
+	//Header for Problem 13
+	printHeader(problem);
+	cout << endl;
+	int length;
+	int max;
+	int min;
+	cout << randArrayPoint(&length, &max, &min) << endl;
+
 
 	return 0;
 
@@ -428,6 +451,48 @@ int* returnIntAddress() {
 	cout << three << endl;
 	cout << &three << endl;
 	return &three;
+}
+/*Problem 12
+ * Takes in an array of integers and prints out each element. It returns nothing
+ * Parameters-
+ * 		int arr - An array of integers
+ * 		int len - An int representing the length of the array
+ * Returns-
+ * 		Nothing
+ */
+void printArray(int arr[], int len) {
+	for (int i=0; i<len; i++) {
+		cout << arr[i];
+		if (i == len-1)
+			break;
+		cout << ", ";
+	}
+	cout << endl;
+}
+
+/*Problem 13
+ * Random num 25-49 -> array on heap of len randnum. It then fills each element
+ * with a random number between a random low of -10--5 and random high between 5-10.
+ * Input parameters are modified based on the generated array.
+ * Parameters:
+ * 		int len: Length of the randomly generated array (25-49)
+ * 		int high: randomly generated max of array (5-10)
+ * 		int low: randomly generated min of array (-10--5)
+ * Returns:
+ * 		Nothing
+ */
+int randArrayPoint(int *len, int *high, int *low) {
+	srand(time(NULL));
+	*len = rand() % 25 + 25;
+	int arr[*len];
+	*high = rand() % 11 + 5;
+	*low = (rand() % 11 + 5) * -1;		//Negative of possible high values
+	for (int i=0; i<*len; i++) {
+		int ele = rand() % (*high - *low) + *low;
+		arr[i] = ele;
+	}
+	return arr;
+
 }
 /*
  * This function prints a line of stars
