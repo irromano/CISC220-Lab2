@@ -27,7 +27,7 @@ void arrayMakerReverse(int len);
 void arrayMakerOrder(int len, int max);
 int* returnIntAddress();
 void printArray(int arr[], int len);
-int randArrayPoint(int *len, int *high, int *low);
+int *randArrayPoint(int *len, int *high, int *low);
 
 int main() {
 	int problem = 0;
@@ -193,9 +193,15 @@ int main() {
 	printHeader(problem);
 	cout << endl;
 	int length;
-	int max;
-	int min;
-	cout << randArrayPoint(&length, &max, &min) << endl;
+	int max = 0;
+	int min = 0;
+	int* arr13b = randArrayPoint(&length, &max, &min);
+	//int arr13b[length];
+	printArray(arr13b, length);
+//	for (int i=0; i<length; i++) {
+//		delete arr13b[i];
+//	}
+//	delete [] arr13b;
 
 
 	return 0;
@@ -481,17 +487,17 @@ void printArray(int arr[], int len) {
  * Returns:
  * 		Nothing
  */
-int randArrayPoint(int *len, int *high, int *low) {
+int *randArrayPoint(int *len, int *high, int *low) {
 	srand(time(NULL));
 	*len = rand() % 25 + 25;
-	int arr[*len];
+	int *arr13 = new int[*len];
 	*high = rand() % 11 + 5;
 	*low = (rand() % 11 + 5) * -1;		//Negative of possible high values
 	for (int i=0; i<*len; i++) {
 		int ele = rand() % (*high - *low) + *low;
-		arr[i] = ele;
+		arr13[i] = ele;
 	}
-	return arr;
+	return arr13;
 
 }
 /*
