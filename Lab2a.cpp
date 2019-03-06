@@ -28,6 +28,7 @@ void arrayMakerOrder(int len, int max);
 int* returnIntAddress();
 void printArray(int arr[], int len);
 int *randArrayPoint(int *len, int *high, int *low);
+void printArrayAddress(int arr[], int len);
 
 int main() {
 	int problem = 0;
@@ -192,16 +193,29 @@ int main() {
 	//Header for Problem 13
 	printHeader(problem);
 	cout << endl;
+	cout << "A array of random length (25 to 49) with random int elements between a random min (-10 to -5) and random max (5 to 10) should print:" << endl;
 	int length;
 	int max = 0;
 	int min = 0;
 	int* arr13b = randArrayPoint(&length, &max, &min);
 	//int arr13b[length];
 	printArray(arr13b, length);
-//	for (int i=0; i<length; i++) {
-//		delete arr13b[i];
-//	}
-//	delete [] arr13b;
+	printLine();
+
+	//Header for Problem 15
+	printHeader(problem);
+	cout << endl;
+	srand(time(NULL));				//Setting seed for RNG
+	int arr15[10];
+	for (int i=0; i<10; i++){			//build int array of rand ints
+		arr15[i]= rand() % 10 + 1;		//random int 1-10
+	}
+	printArrayAddress(arr15, 10);
+	printLine();
+
+	//Header for Problem 17
+	printHeader(problem);
+	cout << endl;
 
 
 	return 0;
@@ -499,6 +513,23 @@ int *randArrayPoint(int *len, int *high, int *low) {
 	}
 	return arr13;
 
+}
+/*Problem 15
+ * Takes in an int array and prints out the address of each element.
+ * Parameters:
+ * 	int arr: an array of integers
+ * 	int len: length of the array to be printed
+ * Returns:
+ * 	Nothing
+ */
+void printArrayAddress(int arr[], int len) {
+	for (int i=0; i<len; i++) {
+		cout << &arr[i];
+		if (i == len-1)
+			break;
+		cout << ", ";
+	}
+	cout << endl;
 }
 /*
  * This function prints a line of stars
