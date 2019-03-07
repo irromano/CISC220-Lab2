@@ -29,6 +29,7 @@ int* returnIntAddress();
 void printArray(int arr[], int len);
 int *randArrayPoint(int *len, int *high, int *low);
 void printArrayAddress(int arr[], int len);
+int *removeSequentialDuplicates(int arr[], int &len);
 
 int main() {
 	int problem = 0;
@@ -215,6 +216,29 @@ int main() {
 
 	//Header for Problem 17
 	printHeader(problem);
+	cout << endl;
+	cout << "Testcase 1" << endl;
+	int arr17a[] = {1, 2, 2, 4, 4, 5};
+	int length17 = 6;
+	int* arr17b = removeSequentialDuplicates(arr17a, length17);
+	// 4 length array should print: 1, 2, 4, 5
+	printArray(arr17b, length17);
+	cout << endl;
+
+	cout << "Testcase 2" << endl;
+	int arr17c[] = {1, 2, 3, 4, 5, 6};
+	length17 = 6;
+	int* arr17d = removeSequentialDuplicates(arr17c, length17);
+	// 6 length array should print: 1, 2, 3, 4, 5, 6
+	printArray(arr17d, length17);
+	cout << endl;
+
+	cout << "Testcase 3" << endl;
+	int arr17e[] = {10, 10, 9, 9, 8, 8, 7, 7, 7, 7};
+	length17 = 10;
+	int* arr17f = removeSequentialDuplicates(arr17e, length17);
+	// 4 length array should print: 10, 9, 8, 7
+	printArray(arr17f, length17);
 	cout << endl;
 
 
@@ -530,6 +554,29 @@ void printArrayAddress(int arr[], int len) {
 		cout << ", ";
 	}
 	cout << endl;
+}
+/*Problem 17
+ * This function takes in an int array and an int representing its length. It then returns an array of the same elements with
+ * the repeating elements removed. This only removes an element if it is the same value as the element preceding it. The
+ * value of the length input is modified to the length of the new array returned.
+ * Parameters:
+ * 		int arr: an array of integers
+ * 		int len: length of the array inputed
+ * Returns:
+ * 		int newArr: new array with sequential repeated elements removed.
+ */
+int *removeSequentialDuplicates(int arr[], int &len) {
+	int *newArr = new int[len];
+	newArr[0] = arr[0];
+	int ele = 0;
+	for (int i=1; i<len; i++) {
+		if (arr[i] != newArr[ele]) {
+			newArr[ele + 1] = arr[i];
+			ele++;
+		}
+	}
+	len = ele + 1;
+	return newArr;
 }
 /*
  * This function prints a line of stars
