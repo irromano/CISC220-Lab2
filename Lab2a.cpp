@@ -30,6 +30,7 @@ void printArray(int arr[], int len);
 int *randArrayPoint(int *len, int *high, int *low);
 void printArrayAddress(int arr[], int len);
 int *removeSequentialDuplicates(int arr[], int &len);
+void printGraph(int arr[], int len, int min, int max);
 int **twoDimArray(int *x, int *y);
 
 int main() {
@@ -241,6 +242,24 @@ int main() {
 	// 4 length array should print: 10, 9, 8, 7
 	printArray(arr17f, length17);
 	printLine();
+
+	//Header for problem 20
+	cout << endl;
+
+	cout << "Testcase 1" << endl;
+	int arr20a[] = { 6, 8, 2, 3, 2, 5, -2 };
+	printGraph(arr20a, 7, -2, 8);
+
+	cout << "Testcase 2" << endl;
+	int arr20b[] = { -9, -8, -7, -6, -5, -4};
+	printGraph(arr20b, 6, -9, -4);
+
+	cout << "Testcase 3" << endl;
+	int arr20c[] = { 7, 6, 5, 4, 3, 2, 1};
+	printGraph(arr20c, 7, 1, 7);
+	cout << endl;
+	printLine();
+
 
 	//Header for problem 21
 	printHeader(problem);
@@ -588,6 +607,27 @@ int *removeSequentialDuplicates(int arr[], int &len) {
 	}
 	len = ele + 1;
 	return newArr;
+}
+/*Problem 20
+ * This function prints out a graph of an array of values over element iteration.
+ * Parameters-
+ * 		int arr[]: The array to be graphed
+ * 		len: Length of the array
+ * 		min: minimum values to be graphed
+ * 		max: maximum values to be graphed
+ */
+void printGraph(int arr[], int len, int min, int max) {
+	for (int i=max; i> min-1; i--) {
+		cout << i << ':';
+		for (int j=0; j<len; j++) {
+			if (arr[j] == i) {
+				cout <<'*';
+			} else {
+				cout << ' ';
+			}
+		}
+		cout << endl;
+	}
 }
 /*Problem 21
  * This function takes in two integer addresses and returns the address of a 2-dimensional array.
