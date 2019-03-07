@@ -30,6 +30,7 @@ void printArray(int arr[], int len);
 int *randArrayPoint(int *len, int *high, int *low);
 void printArrayAddress(int arr[], int len);
 int *removeSequentialDuplicates(int arr[], int &len);
+int **twoDimArray(int *height, int *width);
 
 int main() {
 	int problem = 0;
@@ -239,7 +240,17 @@ int main() {
 	int* arr17f = removeSequentialDuplicates(arr17e, length17);
 	// 4 length array should print: 10, 9, 8, 7
 	printArray(arr17f, length17);
+	printLine();
+
+	//Header for problem 21
+	printHeader(problem);
 	cout << endl;
+	cout << "This should print a 2-dim int array of random width and height (4-8 and 5-10). All elements are zeros except 5 random 1's." << endl;
+	int height;
+	int width;
+	int **arr21dim = twoDimArray(&height, &width);
+	for (int i=0; i<height; i++)
+		printArray(arr21dim[i], width);
 
 
 	return 0;
@@ -577,6 +588,60 @@ int *removeSequentialDuplicates(int arr[], int &len) {
 	}
 	len = ele + 1;
 	return newArr;
+}
+/*Problem 21
+ * This function takes in two integer addresses and returns the address of a 2-dimensional array.
+ * The number of rows will be a random number between 5 and 10. the number of columns will be a random number
+ * between 4 and 8. Values of inputs will be changed to lenght and width via call-by-pointer.
+ * Parameters-
+ * 		int x: number of col
+ * 		int y: number of rows
+ * Returns-
+ * 		A two dimensional array of integers, randomly 5-10 high and 4-8 wide
+ */
+int **twoDimArray(int *height, int *width) {
+	srand(time(NULL));
+	*height = rand() % 5 + 5;
+	*width = rand() % 4 + 4;
+	int **arr21 = new int*[*height];
+	for (int i=0; i<*height; i++) {
+		arr21[i] = new int[*width];
+		for (int j=0; j<*width; j++)
+			arr21[i][j] = 0;
+	}
+	int xa = rand() % *height;
+	int ya = rand() % *width;
+	int xb;
+	int yb;
+	int xc;
+	int yc;
+	int xd;
+	int yd;
+	int xe;
+	int ye;
+	do {
+		xb = rand() % *height;
+		yb = rand() % *width;
+	} while (xb == xa && yb == ya);
+	do {
+		xc = rand() % *height;
+		yc = rand() % *width;
+	} while ((xc == xa && yc == ya ) || (xc == xb && yc == yb ));
+	do {
+		xd = rand() % *height;
+		yd = rand() % *width;
+	} while ((xd == xa && yd == ya) || (xd == xb && yd == yb ) || (xd == xc && yd == yc ));
+	do {
+		xe = rand() % *height;
+		ye = rand() % *width;
+	} while ((xe == xa && ye == ya) || (xe == xb && ye == yb)  || (xe == xc && ye == yc) || (xe == xd && ye == yd) );
+	arr21[xa][ya] = 1;
+	arr21[xb][yb] = 1;
+	arr21[xc][yc] = 1;
+	arr21[xd][yd] = 1;
+	arr21[xe][ye] = 1;
+	return arr21;
+
 }
 /*
  * This function prints a line of stars
