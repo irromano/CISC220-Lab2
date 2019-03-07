@@ -30,7 +30,7 @@ void printArray(int arr[], int len);
 int *randArrayPoint(int *len, int *high, int *low);
 void printArrayAddress(int arr[], int len);
 int *removeSequentialDuplicates(int arr[], int &len);
-int **twoDimArray(int *height, int *width);
+int **twoDimArray(int *x, int *y);
 
 int main() {
 	int problem = 0;
@@ -599,18 +599,18 @@ int *removeSequentialDuplicates(int arr[], int &len) {
  * Returns-
  * 		A two dimensional array of integers, randomly 5-10 high and 4-8 wide
  */
-int **twoDimArray(int *height, int *width) {
+int **twoDimArray(int *x, int *y) {
 	srand(time(NULL));
-	*height = rand() % 5 + 5;
-	*width = rand() % 4 + 4;
-	int **arr21 = new int*[*height];
-	for (int i=0; i<*height; i++) {
-		arr21[i] = new int[*width];
-		for (int j=0; j<*width; j++)
+	*x = rand() % 5 + 5;
+	*y = rand() % 4 + 4;
+	int **arr21 = new int*[*x];
+	for (int i=0; i<*x; i++) {
+		arr21[i] = new int[*y];
+		for (int j=0; j<*y; j++)
 			arr21[i][j] = 0;
 	}
-	int xa = rand() % *height;
-	int ya = rand() % *width;
+	int xa = rand() % *x;
+	int ya = rand() % *y;
 	int xb;
 	int yb;
 	int xc;
@@ -620,20 +620,20 @@ int **twoDimArray(int *height, int *width) {
 	int xe;
 	int ye;
 	do {
-		xb = rand() % *height;
-		yb = rand() % *width;
+		xb = rand() % *x;
+		yb = rand() % *y;
 	} while (xb == xa && yb == ya);
 	do {
-		xc = rand() % *height;
-		yc = rand() % *width;
+		xc = rand() % *x;
+		yc = rand() % *y;
 	} while ((xc == xa && yc == ya ) || (xc == xb && yc == yb ));
 	do {
-		xd = rand() % *height;
-		yd = rand() % *width;
+		xd = rand() % *x;
+		yd = rand() % *y;
 	} while ((xd == xa && yd == ya) || (xd == xb && yd == yb ) || (xd == xc && yd == yc ));
 	do {
-		xe = rand() % *height;
-		ye = rand() % *width;
+		xe = rand() % *x;
+		ye = rand() % *y;
 	} while ((xe == xa && ye == ya) || (xe == xb && ye == yb)  || (xe == xc && ye == yc) || (xe == xd && ye == yd) );
 	arr21[xa][ya] = 1;
 	arr21[xb][yb] = 1;
