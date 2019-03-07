@@ -9,6 +9,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
+#include <cmath>
 using namespace std;
 
 void printHeader(int &problemCounter);
@@ -28,8 +29,12 @@ void arrayMakerOrder(int len, int max);
 int* returnIntAddress();
 void printArray(int arr[], int len);
 int *randArrayPoint(int *len, int *high, int *low);
+int *stackArray(int length);
 void printArrayAddress(int arr[], int len);
+void doubleArr(double arr[], int length);
 int *removeSequentialDuplicates(int arr[], int &len);
+int hanningWindow(int arr[], int length);
+int* hanningArray(int arr[], int length);
 void printGraph(int arr[], int len, int min, int max);
 int **twoDimArray(int *x, int *y);
 
@@ -205,6 +210,19 @@ int main() {
 	printArray(arr13b, length);
 	printLine();
 
+	//Header for Problem 14
+	printHeader(problem);
+	cout << endl;
+	int lengthStackArr = 25;
+	int *stackArr = stackArray(lengthStackArr);
+
+	/* This won't work since the array is being put on the stack. After the function is done running,
+	 * the array will be taken off the stack and when we try and call it in main,
+	 * the function will point to an array that doesn't exist.dP
+	 */
+	cout << "Doesn't work" << endl;
+	printLine();
+
 	//Header for Problem 15
 	printHeader(problem);
 	cout << endl;
@@ -214,6 +232,32 @@ int main() {
 		arr15[i]= rand() % 10 + 1;		//random int 1-10
 	}
 	printArrayAddress(arr15, 10);
+	printLine();
+
+	//Header for Problem 16
+	printHeader(problem);
+
+	//Test 1
+	cout << "Test 1: " << endl;
+	double dbleArr1[10];
+	for (int e = 0; e < 10; e++) {
+		dbleArr1[e] = (double) rand() / 10000000;
+	}
+	doubleArr(dbleArr1, 10);
+	//Test 2
+	cout << "Test 2: " << endl;
+	double dbleArr2[20];
+	for (int e = 0; e < 20; e++) {
+		dbleArr2[e] = (double) rand() / 10000000;
+	}
+	doubleArr(dbleArr2, 20);
+	//Test 3
+	cout << "Test 3: " << endl;
+	double dbleArr3[30];
+	for (int e = 0; e < 30; e++) {
+		dbleArr3[e] = (double) rand() / 10000000;
+	}
+	doubleArr(dbleArr3, 30);
 	printLine();
 
 	//Header for Problem 17
@@ -243,7 +287,50 @@ int main() {
 	printArray(arr17f, length17);
 	printLine();
 
+	//Header for Problem 18
+	printHeader(problem);
+	//Test 1
+	cout << "Test 1: " << endl;
+	int arr18_1[9] = { 3, 8, 2, 5, 1, 4, 6, 0, 2 };
+	printArray(arr18_1, 9);
+	cout << "Average value: " << hanningWindow(arr18_1, 9) << endl;
+	cout << "Weighted value: " << hanningWindow(arr18_1, 9) * 25 << endl;
+	//Test 2
+	cout << "Test 2: " << endl;
+	int arr18_2[5] = { 3, 8, 2, 5, 1, };
+	printArray(arr18_2, 5);
+	cout << "Average value: " << hanningWindow(arr18_2, 5) << endl;
+	cout << "Weighted value: " << hanningWindow(arr18_2, 5) * 9 << endl;
+	//Test 2
+	cout << "Test 3: " << endl;
+	int arr18_3[7] = { 8, 2, 5, 1, 4, 6, 0, };
+	printArray(arr18_3, 7);
+	cout << "Average value: " << hanningWindow(arr18_3, 7) << endl;
+	cout << "Weighted value: " << hanningWindow(arr18_3, 7) * 16 << endl;
+	printLine();
+
+	//Header for Problem 19
+	printHeader(problem);
+	//Test 1
+	cout << "Test 1: " << endl;
+	printArray(arr18_1, 9);
+	cout << "New Array: " << endl;
+	printArray(hanningArray(arr18_1, 9),9);
+	//Test 2
+	cout << "Test 2: " << endl;
+	printArray(arr18_2, 5);
+	cout << "New Array: " << endl;
+	printArray(hanningArray(arr18_2, 5),5);
+	//Test 2
+	cout << "Test 3: " << endl;
+	printArray(arr18_3, 7);
+	cout << "New Array: " << endl;
+	printArray(hanningArray(arr18_3, 7),7);
+	printLine();
+
+
 	//Header for problem 20
+	printHeader(problem);
 	cout << endl;
 
 	cout << "Testcase 1" << endl;
@@ -568,6 +655,24 @@ int *randArrayPoint(int *len, int *high, int *low) {
 	return arr13;
 
 }
+/*Problem 14
+ * Creates an array on the stack instead of the heap
+ * and fills it with random numbers (doesn't work)
+ * Parameters:
+ * 		int length: the size of the array b/w 25 and 50
+ * Returns:
+ * 		int - address of the first value of the array
+ */
+int *stackArray(int length) {
+	length = rand() % 25 + 25;
+	int high = rand() % 5 + 5;
+	int low = (rand() % 5) * (-1) - 5;
+	int arr[length];
+	for (int i = 0; i < length; i++) {
+		arr[i] = rand() % (high - low) - high;
+	}
+	return arr;
+}
 /*Problem 15
  * Takes in an int array and prints out the address of each element.
  * Parameters:
@@ -584,6 +689,21 @@ void printArrayAddress(int arr[], int len) {
 		cout << ", ";
 	}
 	cout << endl;
+}
+/*Problem 16
+ * Takes an array of doubles and prints out every address of every value
+ * in the array.
+ * Parameters:
+ * 		double arr[]: an array of doubles
+ * 		int length: length of the array
+ * Returns:
+ * 		Nothing
+ */
+void doubleArr(double arr[], int length) {
+	for (int i = 0; i < length; i++) {
+		cout << "# " << i << " address: " << &arr[i] << ". Value: " << arr[i]
+				<< endl;
+	}
 }
 /*Problem 17
  * This function takes in an int array and an int representing its length. It then returns an array of the same elements with
@@ -607,6 +727,58 @@ int *removeSequentialDuplicates(int arr[], int &len) {
 	}
 	len = ele + 1;
 	return newArr;
+}
+/*Problem 18
+ * Takes an array of integers, and smoothes the array by taking the average
+ * of the array and replace any outliers with the average of the array and
+ * replaces the outer values with 0's. It weighs the values of the array
+ * to provide a smoother average than a simple low-pass filter.
+ * Parameters:
+ * 		int arr[]: array of integers
+ * 		int length: length of the array
+ * Returns:
+ * 		int - average value of the array
+ */
+int hanningWindow(int arr[], int length) {
+	int multiply = 1;
+	int divide = 0;
+	int sum = 0;
+	if (length <= 0) {
+		return 0;
+	}
+	for (int i = 0; i < length; i++) {
+		sum += multiply * arr[i];
+		divide += multiply;
+		if ((i + 1) <= ceil(length / 2)) {
+			multiply++;
+		} else {
+			multiply--;
+		}
+	}
+	return (sum / divide);
+}
+
+/*Problem 19
+ * Takes an array of integers, and uses the function
+ * in Problem 18 to smooth out the array and get rid
+ * of outliers.
+ * Parameters:
+ * 		int arr[]: array of integers
+ * 		int length: length of the array
+ * Returns:
+ * 		int - new array of ints
+ */
+int* hanningArray(int arr[], int length) {
+	int i = 0;
+	int *newArray = new int[length];
+	for (int i = 0; i < length; i++) {
+		if (i == 0 || i == 1 || i == length-1 || i == length-2) {
+			newArray[i] = 0;
+		} else {
+			newArray[i] = hanningWindow(&arr[i-2],5);
+		}
+	}
+	return newArray;
 }
 /*Problem 20
  * This function prints out a graph of an array of values over element iteration.
