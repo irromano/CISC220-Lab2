@@ -177,6 +177,7 @@ int main() {
 
 	cout << "Testcase 1" << endl;
 	int *threePointer = returnIntAddress();
+	cout << "Printing out the pointing value and the value of 'threePointer' terminates the program. The value of threePointer zeros when the original function finishes." << endl;
 	//cout << *threePointer << endl;			//Printing out the pointing value and the value of 'threePointer' terminates the program. The value of threePointer zeros when the original function finishes.
 	//cout << threePointer << endl;
 	cout << endl;
